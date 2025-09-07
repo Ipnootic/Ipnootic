@@ -10,11 +10,11 @@
 
   <extension point="xbmc.addon.repository" name="Ipnootic Repo">
     <!-- Lista de add-ons do repositório (vazio por agora) -->
-    <info compressed="false">https://ipnootic.github.io/ipnootic/main/addons.xml</info>
+    <info compressed="false">https://ipnootic.github.io/ipnootic/addons.xml</info>
     <!-- MD5 do ficheiro acima -->
-    <checksum>https://ipnootic.github.io/ipnootic/main/addons.xml.md5</checksum>
+    <checksum>https://ipnootic.github.io/ipnootic/addons.xml.md5</checksum>
     <!-- Base onde vivem os .zip de cada add-on -->
-    <datadir zip="true">https://ipnootic.github.io/ipnootic/main/Repo/</datadir>
+    <datadir zip="true">https://ipnootic.github.io/ipnootic/Repo/</datadir>
   </extension>
 
   <extension point="xbmc.addon.metadata">
