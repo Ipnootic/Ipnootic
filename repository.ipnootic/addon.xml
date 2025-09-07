@@ -1,5 +1,12 @@
-<extension point="xbmc.addon.repository" name="Ipnootic Repo">
-  <info compressed="false">https://raw.githubusercontent.com/ipnootic/ipnootic/main/addons.xml</info>
-  <checksum>https://raw.githubusercontent.com/ipnootic/ipnootic/main/addons.xml.md5</checksum>
-  <datadir zip="true">https://raw.githubusercontent.com/ipnootic/ipnootic/main/zips/</datadir>
-</extension>
+<addon id="repository.ipnootic" name="Ipnootic Repo" version="1.0.0" provider-name="Ipnootic">
+  <extension point="xbmc.addon.repository" name="Ipnootic Repo">
+    <info compressed="false">https://raw.githubusercontent.com/ipnootic/ipnootic/main/addons.xml</info>
+    <checksum>https://raw.githubusercontent.com/ipnootic/ipnootic/main/addons.xml.md5</checksum>
+    <datadir zip="true">https://raw.githubusercontent.com/ipnootic/ipnootic/main/repo/</datadir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Ipnootic Repo</summary>
+    <description lang="en_GB">Repository for Ares and future add-ons.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
