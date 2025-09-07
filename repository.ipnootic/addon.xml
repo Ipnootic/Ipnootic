@@ -1,5 +1,5 @@
 <extension point="xbmc.addon.repository" name="Ipnootic Repo">
-  <info compressed="false">https://ipnootic.github.io/ipnootic/addons.xml</info>
-  <checksum>https://ipnootic.github.io/ipnootic/addons.xml.md5</checksum>
-  <datadir zip="true">https://ipnootic.github.io/ipnootic/zips/</datadir>
+  <info compressed="false">https://raw.githubusercontent.com/ipnootic/ipnootic/main/addons.xml</info>
+  <checksum>https://raw.githubusercontent.com/ipnootic/ipnootic/main/addons.xml.md5</checksum>
+  <datadir zip="true">https://raw.githubusercontent.com/ipnootic/ipnootic/main/zips/</datadir>
 </extension>
