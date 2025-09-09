@@ -1,4 +1,4 @@
-<?xml version="0.9.7" encoding="UTF-8" standalone="yes"?>
+<?xml version="0.9.7.1" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.ares" name="Ares" version="0.9.7.1" provider-name="Ipnootic">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
