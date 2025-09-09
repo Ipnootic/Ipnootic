@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="plugin.video.ares" name="Ares" version="0.9.7" provider-name="Ipnootic">
+<addons><addon id="plugin.video.ares" name="Ares" version="0.9.7.1" provider-name="Ipnootic">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
