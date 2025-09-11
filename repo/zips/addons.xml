@@ -1,31 +1,35 @@
-<?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="plugin.video.ares" name="Ares" version="0.9.7.2" provider-name="Ipnootic">
-  <requires>
-    <import addon="xbmc.python" version="3.0.0" />
-  </requires>
-
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>video</provides>
-  </extension>
-
-  <extension point="xbmc.service" library="service.py" start="login" />
-
-  <extension point="xbmc.addon.metadata">
-    <summary>Ares addon</summary>
-    <description>Ares com Trakt (device), Real-Debrid (device/token), OpenSubtitles (API key) e auto-legendas.</description>
-    <platform>all</platform>
-    <license>GPL-3.0-or-later</license>
-  </extension>
-</addon><addon id="repository.ipnootic" name="Ipnootic Repo" version="1.0.0" provider-name="Ipnootic">
-  <extension point="xbmc.addon.repository" name="Ipnootic Repo">
-    <dir>
-      <info compressed="false">https://ipnootic.github.io/ipnootic/repo/zips/addons.xml</info>
-      <checksum>https://ipnootic.github.io/ipnootic/repo/zips/addons.xml.md5</checksum>
-      <datadir zip="true">https://ipnootic.github.io/ipnootic/repo/zips/</datadir>
-    </dir>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Ipnootic repository</summary>
-    <platform>all</platform>
-  </extension>
-</addon></addons>
+<?xml version="1.0" encoding="UTF-8"?>
+<addons>
+  <addon id="plugin.video.ares"
+         name="Ares"
+         version="0.9.7.2"
+         provider-name="Ipnootic">
+    <requires>
+      <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+      <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="login"/>
+    <extension point="xbmc.addon.metadata">
+      <summary lang="en_GB">Minimal, structured meta-addon.</summary>
+      <description lang="en_GB">Clean-room meta-addon with providers/resolvers and auto-subs.</description>
+      <platform>all</platform>
+      <license>GPL-3.0-or-later</license>
+    </extension>
+  </addon>
+  <addon id="plugin.video.nimbus"
+         name="Nimbus"
+         version="1.0.0"
+         provider-name="CodeCrafter">
+    <requires>
+      <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="main.py" />
+    <extension point="xbmc.addon.metadata">
+      <summary>Nimbus - Addon modular para filmes e séries</summary>
+      <description>Pesquisa, organiza e visualiza conteúdos próprios ou públicos. Integrações com TMDB, Trakt, Real-Debrid, OpenSubtitles. Suporte a scrapers externos.</description>
+      <platform>all</platform>
+    </extension>
+  </addon>
+</addons>
