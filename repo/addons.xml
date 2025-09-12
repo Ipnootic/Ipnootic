@@ -2,7 +2,7 @@
 <addons>
   <addon id="plugin.video.ares"
          name="Ares"
-         version="0.9.7.2"
+         version="0.9.7.3"
          provider-name="Ipnootic">
     <requires>
       <import addon="xbmc.python" version="3.0.0"/>
