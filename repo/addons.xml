@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
+  <!-- Teu addon Ares -->
   <addon id="plugin.video.ares"
          name="Ares"
          version="0.9.7.3"
@@ -18,4 +19,18 @@
       <license>GPL-3.0-or-later</license>
     </extension>
   </addon>
+
+  <!-- Repositório OpenScrapers -->
+  <dir>
+    <info compressed="false">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml</info>
+    <checksum>https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/addons.xml.md5</checksum>
+    <datadir zip="true">https://raw.githubusercontent.com/a4k-openproject/repository.openscrapers/master/zips/</datadir>
+  </dir>
+
+  <!-- Repositório CocoScrapers -->
+  <dir>
+    <info compressed="false">https://cocojoe2411.github.io/zips/addons.xml</info>
+    <checksum>https://cocojoe2411.github.io/zips/addons.xml.md5</checksum>
+    <datadir zip="true">https://cocojoe2411.github.io/zips/</datadir>
+  </dir>
 </addons>
