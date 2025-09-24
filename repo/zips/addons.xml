@@ -1,31 +1,52 @@
-<?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="plugin.video.ares" name="Ares" version="0.9.8" provider-name="Ipnootic">
-  <requires>
-    <import addon="xbmc.python" version="3.0.0" />
-  </requires>
+<?xml version="1.0" encoding="utf-8"?>
+<addons>
 
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>video</provides>
-  </extension>
+  <!-- Ares -->
+  <addon id="plugin.video.ares" name="Ares" version="0.9.8" provider-name="Ipnootic">
+    <requires>
+      <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+      <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="login" />
+    <extension point="xbmc.addon.metadata">
+      <summary>Ares addon</summary>
+      <description>Ares com Trakt (device), Real-Debrid (device/token), OpenSubtitles (API key) e auto-legendas.</description>
+      <platform>all</platform>
+      <license>GPL-3.0-or-later</license>
+    </extension>
+  </addon>
 
-  <extension point="xbmc.service" library="service.py" start="login" />
+  <!-- FEN (garante que “version” bate certo com o ZIP hospedado em /zips/plugin.video.fen/) -->
+  <addon id="plugin.video.fen" name="FEN" version="1.0.0" provider-name="Tikipeter">
+    <requires>
+      <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+      <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+      <summary>FEN video addon</summary>
+      <description>Video add-on.</description>
+      <platform>all</platform>
+      <license>GPL-3.0-or-later</license>
+    </extension>
+  </addon>
 
-  <extension point="xbmc.addon.metadata">
-    <summary>Ares addon</summary>
-    <description>Ares com Trakt (device), Real-Debrid (device/token), OpenSubtitles (API key) e auto-legendas.</description>
-    <platform>all</platform>
-    <license>GPL-3.0-or-later</license>
-  </extension>
-</addon><addon id="repository.ipnootic" name="Ipnootic Repo" version="1.0.0" provider-name="Ipnootic">
-  <extension point="xbmc.addon.repository" name="Ipnootic Repo">
-    <dir>
-      <info compressed="false">https://ipnootic.github.io/ipnootic/repo/zips/addons.xml</info>
-      <checksum>https://ipnootic.github.io/ipnootic/repo/zips/addons.xml.md5</checksum>
-      <datadir zip="true">https://ipnootic.github.io/ipnootic/repo/zips/</datadir>
-    </dir>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Ipnootic repository</summary>
-    <platform>all</platform>
-  </extension>
-</addon></addons>
+  <!-- O teu repositório -->
+  <addon id="repository.ipnootic" name="Ipnootic Repo" version="1.0.0" provider-name="Ipnootic">
+    <extension point="xbmc.addon.repository" name="Ipnootic Repo">
+      <dir>
+        <info compressed="false">https://ipnootic.github.io/ipnootic/repo/zips/addons.xml</info>
+        <checksum>https://ipnootic.github.io/ipnootic/repo/zips/addons.xml.md5</checksum>
+        <datadir zip="true">https://ipnootic.github.io/ipnootic/repo/zips/</datadir>
+      </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+      <summary lang="en_GB">Ipnootic repository</summary>
+      <platform>all</platform>
+    </extension>
+  </addon>
+
+</addons>
