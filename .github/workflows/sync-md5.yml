@@ -1,0 +1,79 @@
+name: Sync MD5 for addons.xml
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "repo/addons.xml"
+      - "repo/zips/addons.xml"
+      - ".github/workflows/sync-md5.yml"
+  pull_request:
+    paths:
+      - "repo/addons.xml"
+      - "repo/zips/addons.xml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  md5:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Recalculate MD5 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          recalc() {
+            local src="$1"; local dst="${src}.md5"
+            if [[ -f "$src" ]]; then
+              local h
+              h="$(md5sum "$src" | awk '{print $1}')"
+              printf "%s\n" "$h" > "$dst"
+            fi
+          }
+          recalc repo/addons.xml
+          recalc repo/zips/addons.xml
+
+      - name: Enforce LF and trailing newline
+        shell: bash
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y dos2unix
+          for f in repo/addons.xml repo/zips/addons.xml repo/addons.xml.md5 repo/zips/addons.xml.md5; do
+            [ -f "$f" ] && { dos2unix "$f" || true; sed -e '$a\' -i "$f"; }
+          done
+
+      - name: Verify checksums (PR only)
+        if: ${{ github.event_name == 'pull_request' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          check() {
+            local src="$1"; local md5f="${1}.md5"
+            [ -f "$src" ] && [ -f "$md5f" ] || exit 0
+            local a b
+            a="$(md5sum "$src" | awk '{print $1}')"
+            b="$(tr -d '\r\n' < "$md5f")"
+            if [[ "$a" != "$b" ]]; then
+              echo "Mismatch: $src (${a}) != ${md5f} (${b})"
+              exit 1
+            fi
+          }
+          check repo/addons.xml
+          check repo/zips/addons.xml
+
+      - name: Commit & push updates (push only)
+        if: ${{ github.event_name != 'pull_request' }}
+        shell: bash
+        run: |
+          if ! git diff --quiet; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add repo/*.md5 repo/zips/*.md5 || true
+            git commit -m "ci(md5): sync checksums for addons.xml"
+            git push
+          fi
