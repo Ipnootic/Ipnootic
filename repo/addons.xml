@@ -24,7 +24,7 @@
   <!-- FEN (certifica-te que a versão coincide com o addon.xml dentro do ZIP) -->
   <addon id="plugin.video.fen"
          name="FEN"
-         version="3.5.14"
+         version="3.5.15"
          provider-name="Tikipeter">
     <requires>
       <import addon="xbmc.python" version="3.0.0"/>
