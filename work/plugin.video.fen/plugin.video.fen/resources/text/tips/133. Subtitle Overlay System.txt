@@ -1,0 +1,70 @@
+SISTEMA DE OVERLAY DE LEGENDAS FEN
+
+O addon Fen agora inclui um sistema avançado de seleção de legendas que permite:
+
+=== CONFIGURAÇÃO ===
+
+1. Vá para Configurações > Playback > Subtitles
+2. Ative "Show Subtitle Selection Overlay"
+3. Configure a posição e tamanho da janela:
+   - Overlay Position X: Posição horizontal (0-1920 pixels)
+   - Overlay Position Y: Posição vertical (0-1080 pixels)  
+   - Overlay Width: Largura da janela (200-800 pixels)
+   - Overlay Height: Altura da janela (150-600 pixels)
+   - Auto-Hide Time: Tempo em segundos para fechar automaticamente (5-600)
+   - Show Timer: Mostrar barra de progresso do tempo restante
+
+=== COMO USAR ===
+
+MODO AUTOMÁTICO:
+SEM OVERLAY:
+- Procura primeiro um match perfeito (título exato + idioma)
+- Se não encontrar, faz nova pesquisa apenas com o título limpo (remove webrip, 1080p, users, etc.)
+- Carrega automaticamente a melhor legenda disponível
+
+COM OVERLAY ATIVO:
+- Ignora completamente a seleção automática
+- Sempre mostra a janela com todas as legendas para escolha manual
+- As legendas são ordenadas por relevância (idioma preferido e qualidade)
+
+MODO MANUAL:
+- Durante qualquer reprodução, você pode chamar a janela de legendas criando uma tecla de atalho no Kodi
+- Configure uma tecla para executar: RunPlugin(plugin://plugin.video.fen/?mode=show_subtitle_overlay)
+- Por exemplo, adicione no keymap.xml do Kodi:
+  <key id="61448">RunPlugin(plugin://plugin.video.fen/?mode=show_subtitle_overlay)</key>
+  (Esta linha faz a tecla 'S' abrir a janela de legendas)
+
+=== FUNCIONALIDADES ===
+
+- Lista todas as legendas disponíveis do OpenSubtitles
+- Mostra qualidade e idioma de cada legenda
+- Ordenação inteligente por relevância
+- Auto-fechamento configurável (até 10 minutos)
+- Navegação simples com setas e Enter
+- Opção para desligar legendas
+- Posição e tamanho totalmente configuráveis
+- Timer visual opcional
+- Sistema inteligente de seleção automática:
+  * Match perfeito: carrega automaticamente
+  * Sem match: pesquisa com título limpo (sem tags de qualidade)
+  * Com overlay: sempre permite escolha manual
+- Interface responsiva que se adapta ao tamanho configurado
+- Pesquisa otimizada que remove automaticamente tags irrelevantes (webrip, 1080p, etc.)
+
+=== NAVEGAÇÃO NA JANELA ===
+
+- Setas Cima/Baixo: Navegar pela lista
+- Enter: Selecionar legenda
+- Esc: Fechar janela
+- Botão X: Fechar janela
+
+A primeira opção é sempre "Desligar Legendas" para facilitar o controle.
+
+=== RESOLUÇÃO DE PROBLEMAS ===
+
+Se a janela não aparecer:
+1. Verifique se as configurações estão ativas
+2. Confirme que há conectividade com o OpenSubtitles
+3. Teste manualmente usando a tecla configurada
+
+O sistema funciona tanto para filmes como séries e mantém compatibilidade total com o sistema original do Fen.
