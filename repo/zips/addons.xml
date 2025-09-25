@@ -19,7 +19,7 @@
   </addon>
 
   <!-- FEN (garante que “version” bate certo com o ZIP hospedado em /zips/plugin.video.fen/) -->
-  <addon id="plugin.video.fen" name="FEN" version="3.5.18" provider-name="Tikipeter">
+  <addon id="plugin.video.fen" name="FEN" version="3.5.19" provider-name="Tikipeter">
     <requires>
       <import addon="xbmc.python" version="3.0.0" />
     </requires>

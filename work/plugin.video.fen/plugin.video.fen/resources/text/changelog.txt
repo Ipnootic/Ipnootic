@@ -1,5 +1,11 @@
 [COLOR darkgoldenrod]GOD BLESS HIM AND KEEP HIM SAFE.[/COLOR]
 
+[COLOR dodgerblue][B]Version 3.5.19[/B][/COLOR]
+- FIXED: Restored OpenSubtitles query with fallback when API returns empty data
+- IMPROVED: Automatic subtitle picker now uses scoring and manual overlay simultaneously
+- IMPROVED: Manual overlay still available while search tolerates imperfect matches
+
+
 [COLOR dodgerblue][B]Version 3.5.18[/B][/COLOR]
 - FIXED: Subtitle search now keeps full IMDb IDs so OpenSubtitles returns matches
 - DEBUG: Removed redundant IMDb sanitization so manual subtitle selection lists reappear when needed

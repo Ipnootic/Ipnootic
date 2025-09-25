@@ -369,55 +369,59 @@ class Subtitles(xbmc_player):
 					return subtitle
 			return False
 		def _searched_subs():
-			chosen_sub = None
 			from modules.kodi_utils import logger
 			logger('FEN', 'DEBUG: Iniciando _searched_subs')
 			result = self.os.search(query, imdb_id, self.language, season, episode)
-			if not result or len(result) == 0: 
-				logger('FEN', 'DEBUG: Sem resultados da API')
-				return False
-			logger('FEN', 'DEBUG: Processando %d resultados' % len(result))
+			if not result or len(result) == 0:
+				logger('FEN', 'DEBUG: Sem resultados da API - tentando busca com título limpo')
+				clean_result = self._search_clean_title(query, imdb_id, season, episode)
+				if clean_result and len(clean_result) > 0:
+					logger('FEN', 'DEBUG: Clean title retornou %d resultados' % len(clean_result))
+					result = clean_result
+				else:
+					logger('FEN', 'DEBUG: Sem resultados da API após tentativas adicionais')
+					return False
+			else:
+				logger('FEN', 'DEBUG: Processando %d resultados' % len(result))
+
 			try: video_path = self.getPlayingFile()
 			except: video_path = ''
 			if '|' in video_path: video_path = video_path.split('|')[0]
 			video_path = os.path.basename(video_path)
-			
+
+			single_cd = [i for i in result if i.get('SubSumCD') == '1']
+			candidate_list = single_cd or result
+			sorted_candidates = self._sort_subtitles(candidate_list) or candidate_list
+			preferred_lang = [i for i in sorted_candidates if i.get('SubLanguageID') == self.language]
+			if not preferred_lang:
+				preferred_lang = sorted_candidates
+
 			logger('FEN', 'DEBUG: subs_action = %s' % self.subs_action)
 			if self.subs_action == '1':
 				logger('FEN', 'DEBUG: Modo manual selecionado')
 				self.pause()
-				choices = [i for i in result if i['SubLanguageID'] == self.language and i['SubSumCD'] == '1']
+				choices = preferred_lang
 				logger('FEN', 'DEBUG: %d escolhas filtradas' % len(choices))
-				if len(choices) == 0: return False
+				if len(choices) == 0:
+					return False
 				dialog_list = ['[B]%s[/B] | [I]%s[/I]' % (i['SubLanguageID'].upper(), i['MovieReleaseName']) for i in choices]
 				list_items = [{'line1': item} for item in dialog_list]
 				kwargs = {'items': json.dumps(list_items), 'heading': video_path.replace('%20', ' '), 'enumerate': 'true', 'narrow_window': 'true'}
 				chosen_sub = select_dialog(choices, **kwargs)
 				self.pause()
-				if not chosen_sub: return False
+				if not chosen_sub:
+					return False
 			else:
 				logger('FEN', 'DEBUG: Modo automático')
-				try: chosen_sub = [i for i in result if i['MovieReleaseName'].lower() in video_path.lower() and i['SubLanguageID'] == self.language and i['SubSumCD'] == '1'][0]
-				except: pass
-				if chosen_sub:
-					logger('FEN', 'DEBUG: Match direto encontrado')
-				else:
-					logger('FEN', 'DEBUG: Sem match direto, tentando filtros')
-				if not chosen_sub:
-					fmt = re.split(r'\.|\(|\)|\[|\]|\s|\-', video_path)
-					fmt = [i.lower() for i in fmt]
-					fmt = [i for i in fmt if i in self.quality]
-					if season and fmt == '': fmt = 'hdtv'
-					result = [i for i in result if i['SubSumCD'] == '1']
-					filter = [i for i in result if i['SubLanguageID'] == self.language \
-												and any(x in i['MovieReleaseName'].lower() for x in fmt) and any(x in i['MovieReleaseName'].lower() for x in self.quality)]
-					logger('FEN', 'DEBUG: Filtro qualidade: %d resultados' % len(filter))
-					if len(filter) > 0: 
-						chosen_sub = filter[0]
-						logger('FEN', 'DEBUG: Usando filtro de qualidade')
-					else: 
-						chosen_sub = result[0]
-						logger('FEN', 'DEBUG: Usando primeiro resultado')
+				chosen_sub = self._auto_select_subtitle(preferred_lang, query, video_path, season, episode)
+				if not chosen_sub and preferred_lang:
+					chosen_sub = preferred_lang[0]
+				if not chosen_sub and sorted_candidates:
+					chosen_sub = sorted_candidates[0]
+
+			if not chosen_sub:
+				return False
+
 			try: lang = convert_language(chosen_sub['SubLanguageID'])
 			except: lang = chosen_sub['SubLanguageID']
 			sub_format = chosen_sub['SubFormat']
@@ -429,6 +433,8 @@ class Subtitles(xbmc_player):
 			subtitle = self.os.download(download_url, subtitle_path, temp_zip, temp_path, final_path)
 			sleep(1000)
 			return subtitle
+
+
 		if self.subs_action == '2': 
 			logger('FEN', 'DEBUG: Subs_action = Off, retornando sem buscar legendas')
 			return

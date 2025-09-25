@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 import shutil
 from zipfile import ZipFile
 from datetime import timedelta
@@ -42,15 +43,26 @@ class OpenSubtitlesAPI:
 	def search(self, query, imdb_id, language, season=None, episode=None):
 		from modules.kodi_utils import logger
 		logger('FEN', 'DEBUG: OpenSubtitles API search iniciado')
-		cache_name = 'opensubtitles_%s_%s' % (imdb_id, language)
+		imdb_clean = re.sub(r'[^0-9]', '', imdb_id or '')
+		cache_key = imdb_clean or (imdb_id or (query or 'no_id'))
+		cache_name = 'opensubtitles_%s_%s' % (cache_key, language)
 		if season: cache_name += '_%s_%s' % (season, episode)
 		cache = main_cache.get(cache_name)
-		if cache: 
+		if cache:
 			logger('FEN', 'DEBUG: Cache hit - %d legendas' % len(cache))
 			return cache
-		url = 'https://rest.opensubtitles.org/search/imdbid-%s/query-%s%s/sublanguageid-%s' \
-				% (imdb_id, quote(query), '/season-%d/episode-%d' % (season, episode) if season else '', language)
-		logger('FEN', 'DEBUG: URL chamada: %s' % url[:100])
+
+		path_parts = []
+		if imdb_clean:
+			path_parts.append(f'imdbid-{imdb_clean}')
+		if query:
+			path_parts.append(f'query-{quote(query)}')
+		if season is not None and episode is not None:
+			path_parts.append(f'season-{season}')
+			path_parts.append(f'episode-{episode}')
+		path_parts.append(f'sublanguageid-{language}')
+		url = 'https://rest.opensubtitles.org/search/' + '/'.join(path_parts)
+		logger('FEN', 'DEBUG: URL chamada: %s' % url[:200])
 		response = self._get(url, retry=True)
 		if not response:
 			logger('FEN', 'DEBUG: Resposta é None')
@@ -63,6 +75,7 @@ class OpenSubtitlesAPI:
 		except Exception as e:
 			logger('FEN', 'DEBUG: Erro JSON: %s' % str(e))
 			return []
+
 
 	def download(self, url, filepath, temp_zip, temp_path, final_path):
 		from modules.kodi_utils import logger
