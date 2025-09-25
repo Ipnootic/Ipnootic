@@ -1,4 +1,4 @@
-﻿[COLOR darkgoldenrod]GOD BLESS HIM AND KEEP HIM SAFE.[/COLOR]
+[COLOR darkgoldenrod]GOD BLESS HIM AND KEEP HIM SAFE.[/COLOR]
 
 [COLOR dodgerblue][B]Version 3.5.18[/B][/COLOR]
 - FIXED: Subtitle search now keeps full IMDb IDs so OpenSubtitles returns matches
